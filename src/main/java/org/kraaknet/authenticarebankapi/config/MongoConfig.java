@@ -17,12 +17,12 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 
     @Override
     protected String getDatabaseName() {
-        return "test";
+        return "authenticarebank";
     }
 
     @Override
     public MongoClient mongoClient() {
-        var connectionString = new ConnectionString("mongodb://localhost:27017/test");
+        var connectionString = new ConnectionString("mongodb://localhost:27017/authenticarebank");
         var mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
@@ -32,6 +32,6 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 
     @Override
     public Collection<String> getMappingBasePackages() {
-        return Collections.singleton("com.baeldung");
+        return Collections.singleton("org.kraaknet.authenticarebankapi.repository.database.model");
     }
 }
