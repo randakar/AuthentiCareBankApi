@@ -4,13 +4,7 @@ services:
     image: 'postgres:13.1-alpine'
     ports:
       - '5432:5432'
-    volumes:
-      - db:/var/lib/postgresql/data
     container_name: db
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
-volumes:
-  db:
-    driver:
-      local
