@@ -2,4 +2,4 @@ spring:
   docker:
     compose:
       enabled: true
-      file: docker-compose.yml
+      file: compose.yaml
