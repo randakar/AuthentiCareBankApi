@@ -3,3 +3,7 @@ spring:
     compose:
       enabled: true
       file: docker-compose.yml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/compose-postgres
+    username: compose-postgres
+    password: compose-postgres
