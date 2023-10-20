@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 @Entity
 @Table(name = "user")
@@ -26,7 +27,7 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    // Todo: Nullable, and format verification
     @Column(name = "email")
+    @Nullable
     private String email;
 }
