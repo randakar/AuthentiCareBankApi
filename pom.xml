@@ -200,7 +200,6 @@
                             <supportingFilesToGenerate>
                                 ApiUtil.java
                             </supportingFilesToGenerate>
-                            <delegatePattern>true</delegatePattern>
                             <skipValidateSpec>false</skipValidateSpec>
                             <configOptions>
                                 <java8>true</java8>
