@@ -24,7 +24,7 @@ public class CustomerController implements CustomerApi {
     }
 
     @Override
-    public ResponseEntity<CustomerDto> getCustomerById(@NotNull Long id) {
+    public ResponseEntity<CustomerDto> getCustomerById(Long id) {
         return ResponseEntity.of(customerService.findCustomerById(id));
     }
 
