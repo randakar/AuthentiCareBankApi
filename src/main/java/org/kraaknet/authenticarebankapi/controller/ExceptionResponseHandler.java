@@ -16,6 +16,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
 
+    /**
+     * Handlers like this should be there to prevent security sensitive details about the used libs to leak to the user.
+     *
+     * @param ex Thrown type exception
+     * @param request Triggering request
+     * @return ResponseEntity with the details that can be given back safely to the end user.
+     */
     @ExceptionHandler(value = TypeMismatchException.class)
     public ResponseEntity<Object> typeMismatchExceptionHandler(@NonNull TypeMismatchException ex,
                                                                @NonNull WebRequest request) {
