@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "customer")
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserEntity {
+public class CustomerEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

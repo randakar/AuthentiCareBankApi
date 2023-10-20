@@ -41,7 +41,7 @@ public class AccountEntity {
 
     @NonNull
     @ManyToOne
-    private UserEntity owner;
+    private CustomerEntity owner;
 
     @NonNull
     @Column(name = "balance", nullable = false)
