@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -16,10 +17,12 @@ import lombok.Setter;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = TransactionEntity.TABLE_NAME)
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @Getter
 @Setter
 public class TransactionEntity {
@@ -45,6 +48,9 @@ public class TransactionEntity {
     @ManyToOne
     @JoinColumn(name = "to_account_id")
     private AccountEntity toAccount;
+
+    @ManyToMany
+    private List<AccountEntity> affectedAccounts = new ArrayList<>();
 
     @NonNull
     @Column

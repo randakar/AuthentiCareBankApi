@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
@@ -55,8 +56,8 @@ public class AccountEntity {
     private String name;
 
     @NonNull
-    @OneToMany(mappedBy="account")
-    @OrderBy("date ASC")
+    @ManyToMany
+    @OrderBy("timestamp ASC")
     private List<TransactionEntity> transactionHistory = new ArrayList<>();
 
 }
