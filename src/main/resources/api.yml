@@ -30,7 +30,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Customer'
+                $ref: '#/components/schemas/CustomerDto'
           description: successful operation
         404:
           content: {}
@@ -56,7 +56,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Customer'
+                $ref: '#/components/schemas/CustomerDto'
           description: successful operation
         404:
           content: {}
@@ -67,7 +67,7 @@ paths:
       x-accepts: application/json
 components:
   schemas:
-    Customer:
+    CustomerDto:
       example:
         firstname: firstname
         id: 0
