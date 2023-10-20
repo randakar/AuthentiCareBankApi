@@ -34,30 +34,30 @@ public class AccountEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @NonNull
     @NaturalId
     @Column(nullable = false)
+    @NonNull
     private String iban;
 
-    @NonNull
     @ManyToOne
+    @NonNull
     private CustomerEntity owner;
 
-    @NonNull
     @Column(name = "balance", nullable = false)
+    @NonNull
     private Long balance;
 
-    @NonNull
     @Column(name = "currency", nullable = false)
+    @NonNull
     private String currency;
 
-    @NonNull
     @Column(nullable = false)
+    @NonNull
     private String name;
 
-    @NonNull
     @ManyToMany
     @OrderBy("timestamp ASC")
+    @NonNull
     private List<TransactionEntity> transactionHistory = new ArrayList<>();
 
 }
