@@ -1,15 +1,16 @@
 package org.kraaknet.authenticarebankapi.controller;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.kraaknet.authenticarebankapi.controller.api.CustomerApi;
 import org.kraaknet.authenticarebankapi.controller.model.CustomerDto;
 import org.kraaknet.authenticarebankapi.service.CustomerService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@Validated
 @RequestMapping("${openapi.api.base-path:}")
 @RequiredArgsConstructor
 public class CustomerController implements CustomerApi {
