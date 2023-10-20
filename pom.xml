@@ -209,6 +209,7 @@
                                 <useJakartaEe>true</useJakartaEe>
                                 <useOptional>true</useOptional>
                                 <useEnumCaseInsensitive>true</useEnumCaseInsensitive>
+                                <useResponseEntity>false</useResponseEntity>
                             </configOptions>
                             <typeMappings>
                                 <typeMapping>DateTime=Instant</typeMapping>
@@ -216,7 +217,7 @@
                             </typeMappings>
                             <importMappings>
                                 <importMapping>Instant=java.time.Instant</importMapping>
-                                <importMapping>Date=java.util.Date</importMapping>
+                                <importMapping>Date=java.time.LocalDateTime</importMapping>
                             </importMappings>
                         </configuration>
                     </execution>
