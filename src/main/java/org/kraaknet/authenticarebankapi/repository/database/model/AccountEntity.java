@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -37,7 +36,8 @@ public class AccountEntity {
 
     @NonNull
     @NaturalId
-    private String accountIBan;
+    @Column(nullable = false)
+    private String iban;
 
     @NonNull
     @ManyToOne
@@ -48,11 +48,11 @@ public class AccountEntity {
     private Long balance;
 
     @NonNull
-    @Column(name = "currency")
+    @Column(name = "currency", nullable = false)
     private String currency;
 
     @NonNull
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @NonNull

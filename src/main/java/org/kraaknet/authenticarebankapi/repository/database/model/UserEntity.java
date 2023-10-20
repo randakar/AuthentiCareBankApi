@@ -37,7 +37,7 @@ public class UserEntity {
     @Nullable
     private String email;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="owner")
     @OrderBy("name ASC")
     private List<AccountEntity> accounts = new ArrayList<>();
 }
