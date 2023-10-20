@@ -12,7 +12,7 @@
 
     <groupId>org.kraaknet</groupId>
     <artifactId>authenticarebankapi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.0</version>
     <name>AuthenticareBankApi</name>
     <description>Rest API for Authenticare Bank</description>
 
