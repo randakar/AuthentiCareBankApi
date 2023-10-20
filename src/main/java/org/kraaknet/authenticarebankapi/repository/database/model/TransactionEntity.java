@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.Null;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,29 +34,30 @@ public class TransactionEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @NonNull
     @Column(columnDefinition= "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
+    @NonNull
     private LocalDateTime timestamp = LocalDateTime.now();
 
-    @Nullable
     @Column
+    @Nullable
     private String fromIban;
 
-    @Nullable
     @Column
+    @Nullable
     private String toIban;
 
     @ManyToMany
     @JoinTable
     // May affect 1 or 2 accounts, since accounts can be at different banks.
+    @NonNull
     private List<AccountEntity> affectedAccounts = new ArrayList<>();
 
-    @NonNull
     @Column
+    @NonNull
     private Long amount;
 
-    @NonNull
     @Column
+    @NonNull
     private String currency;
 }

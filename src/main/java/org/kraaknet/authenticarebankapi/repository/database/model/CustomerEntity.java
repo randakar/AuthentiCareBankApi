@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.ArrayList;
@@ -28,9 +29,11 @@ public class CustomerEntity {
     private long id;
 
     @Column(name = "first_name", nullable = false)
+    @Nullable
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
+    @Nullable
     private String lastName;
 
     @Column(name = "email")
@@ -39,5 +42,6 @@ public class CustomerEntity {
 
     @OneToMany(mappedBy="owner")
     @OrderBy("name ASC")
+    @NonNull
     private List<AccountEntity> accounts = new ArrayList<>();
 }
