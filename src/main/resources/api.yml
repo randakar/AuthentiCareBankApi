@@ -34,7 +34,7 @@ paths:
           description: successful operation
         404:
           content: {}
-          description: User not found
+          description: Customer not found
       summary: Get my own customer details
       tags:
         - customer
@@ -60,7 +60,7 @@ paths:
           description: successful operation
         404:
           content: {}
-          description: User not found
+          description: Customer not found
       summary: Get customer by id
       tags:
         - customer
@@ -84,11 +84,7 @@ components:
         email:
           type: string
       required:
-        - accountIds
-        - email
-        - firstname
         - id
-        - lastname
       type: object
     Error:
       properties:
