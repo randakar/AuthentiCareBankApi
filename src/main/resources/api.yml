@@ -1,92 +1,103 @@
-openapi: "3.0.0"
+openapi: 3.0.0
 info:
-  title: AuthentiCare Bank
-  description: "Authenticare banking cares for your authentic experience!"
-  termsOfService: https://authenticare-bank.com/terms
   contact:
     email: randakar@gmail.com
+  description: Authenticare banking cares for your authentic experience!
   license:
     name: The GNU General Public License v3.0
     url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  termsOfService: https://authenticare-bank.com/terms
+  title: AuthentiCare Bank
   version: ${version}
 externalDocs:
   description: Find this on github!
   url: https://github.com/randakar/AuthentiCareBankApi
+servers:
+  - url: /
 tags:
-  - name: account
-    description: Operations on accounts
-  - name: customer
-    description: Operations on customers
-  - name: transaction
-    description: Money transfer
+  - description: Operations on accounts
+    name: account
+  - description: Operations on customers
+    name: customer
+  - description: Money transfer
+    name: transaction
 paths:
   /customer/me:
     get:
-      tags:
-        - customer
-      summary: Get my own customer details
       operationId: getCurrentCustomer
       responses:
         200:
-          description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customer'
+          description: successful operation
         404:
+          content: {}
           description: User not found
-          content: { }
-  /customer/{id}:
-    get:
+      summary: Get my own customer details
       tags:
         - customer
-      summary: Get customer by id
+      x-accepts: application/json
+  /customer/{id}:
+    get:
       operationId: getCustomerById
       parameters:
-        - name: id
+        - description: 'The id of the customer that needs to be fetched. '
+          explode: false
           in: path
-          description: 'The id of the customer that needs to be fetched. '
+          name: id
           required: true
           schema:
             type: integer
+          style: simple
       responses:
         200:
-          description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customer'
+          description: successful operation
         404:
+          content: {}
           description: User not found
-          content: { }
+      summary: Get customer by id
+      tags:
+        - customer
+      x-accepts: application/json
 components:
   schemas:
     Customer:
-      type: object
-      required:
-        - id
-        - firstname
-        - lastname
-        - email
-        - accountIds
+      example:
+        firstname: firstname
+        id: 0
+        email: email
+        lastname: lastname
       properties:
         id:
-          type: integer
           format: int64
+          type: integer
         firstname:
           type: string
         lastname:
           type: string
         email:
           type: string
-    Error:
+      required:
+        - accountIds
+        - email
+        - firstname
+        - id
+        - lastname
       type: object
+    Error:
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
       required:
         - code
         - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
+      type: object
