@@ -1,0 +1,99 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: randakar@gmail.com
+  description: Authenticare banking cares for your authentic experience!
+  license:
+    name: The GNU General Public License v3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  termsOfService: https://authenticare-bank.com/terms
+  title: AuthentiCare Bank
+  version: ${version}
+externalDocs:
+  description: Find this on github!
+  url: https://github.com/randakar/AuthentiCareBankApi
+servers:
+  - url: /
+tags:
+  - description: Operations on accounts
+    name: account
+  - description: Operations on customers
+    name: customer
+  - description: Money transfer
+    name: transaction
+paths:
+  /customer/me:
+    get:
+      operationId: getCurrentCustomer
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+          description: successful operation
+        404:
+          content: {}
+          description: Customer not found
+      summary: Get my own customer details
+      tags:
+        - customer
+      x-accepts: application/json
+  /customer/{id}:
+    get:
+      operationId: getCustomerById
+      parameters:
+        - description: 'The id of the customer that needs to be fetched. '
+          explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+          description: successful operation
+        404:
+          content: {}
+          description: Customer not found
+      summary: Get customer by id
+      tags:
+        - customer
+      x-accepts: application/json
+components:
+  schemas:
+    CustomerDto:
+      example:
+        firstname: firstname
+        id: 0
+        email: email
+        lastname: lastname
+      properties:
+        id:
+          format: int64
+          type: integer
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+      required:
+        - id
+      type: object
+    Error:
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+      required:
+        - code
+        - message
+      type: object
