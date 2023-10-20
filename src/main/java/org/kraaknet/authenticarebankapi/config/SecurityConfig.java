@@ -34,6 +34,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService(@NonNull PasswordEncoder encoder) {
         UserDetails admin = User.withUsername("Floris")
                 // Needless to say I would not do this in a real application
+                // But for now it will do, as real Oauth2 requires me to store a real secret in this repository.
                 .password(encoder.encode(NOT_A_PASSWORD))
                 .roles("ADMIN", "USER")
                 .build();
