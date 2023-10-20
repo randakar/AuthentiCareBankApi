@@ -122,14 +122,21 @@
                 <version>3.11.0</version>
                 <configuration>
                     <fork>true</fork> <!-- Must fork or else JVM arguments are ignored. -->
-                    <compilerArgs>
+                    <compilerArgs combine.children="append">
                         <!-- We turn off:
                             - `serial` because we don't use Java serialization
                               (and all it does is stupidly complain about the serialVersionUID)
                             - `processing` because it complains about every annotation
                         -->
                         <arg>-Xlint:all,-serial,-processing</arg>
+                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
+                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
                     </compilerArgs>
+
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <annotationProcessorPaths>
@@ -164,14 +171,6 @@
                             org.checkerframework.checker.regex.RegexChecker
                         </annotationProcessor>
                     </annotationProcessors>
-                    <compilerArgs combine.children="append">
-                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
-                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
-                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
-                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
-                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
-                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
-                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>
