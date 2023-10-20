@@ -1,5 +1,12 @@
 # AuthentiCareBankApi
 
+_Running_
+1. docker-compose up
+2. mvn clean package
+3. java -jar target/authenticarebankapi-*.jar
+
+Note that docker-compose config isn't perfect, the app container is missing at this time due to limitations to the dev machine...
+
 _Rabobank banking account assignment_
 
 Write some code in Java to simulate a simple bank account. 
