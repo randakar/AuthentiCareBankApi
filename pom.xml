@@ -143,6 +143,18 @@
                         <annotationProcessor>
                             org.checkerframework.checker.nullness.NullnessChecker
                         </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.interning.InterningChecker
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.fenum.FenumChecker
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.formatter.FormatterChecker
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.regex.RegexChecker
+                        </annotationProcessor>
                     </annotationProcessors>
                     <compilerArgs combine.children="append">
                         <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
