@@ -197,9 +197,6 @@
                             <generatorName>spring</generatorName>
                             <apiPackage>org.kraaknet.authenticarebankapi.controller.api</apiPackage>
                             <modelPackage>org.kraaknet.authenticarebankapi.controller.model</modelPackage>
-                            <supportingFilesToGenerate>
-                                ApiUtil.java
-                            </supportingFilesToGenerate>
                             <skipValidateSpec>false</skipValidateSpec>
                             <configOptions>
                                 <java8>true</java8>
@@ -216,6 +213,7 @@
                             <typeMappings>
                                 <typeMapping>DateTime=Instant</typeMapping>
                                 <typeMapping>Date=LocalDate</typeMapping>
+                                <typeMappings>integer=Long,int=Long</typeMappings>
                             </typeMappings>
                             <importMappings>
                                 <importMapping>Instant=java.time.Instant</importMapping>
