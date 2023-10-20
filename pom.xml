@@ -195,11 +195,12 @@
                                 ${project.basedir}/src/main/resources/api.yml
                             </inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>org.kraaknet.authenticarebankapi.openapi.api</apiPackage>
-                            <modelPackage>org.kraaknet.authenticarebankapi.openapi.model</modelPackage>
+                            <apiPackage>org.kraaknet.authenticarebankapi.controller.api</apiPackage>
+                            <modelPackage>org.kraaknet.authenticarebankapi.controller.model</modelPackage>
                             <supportingFilesToGenerate>
                                 ApiUtil.java
                             </supportingFilesToGenerate>
+                            <delegatePattern>true</delegatePattern>
                             <skipValidateSpec>false</skipValidateSpec>
                             <configOptions>
                                 <java8>true</java8>
