@@ -210,6 +210,7 @@
                                 <useOptional>true</useOptional>
                                 <useEnumCaseInsensitive>true</useEnumCaseInsensitive>
                                 <useResponseEntity>false</useResponseEntity>
+                                <generatedConstructorWithRequiredArgs>true</generatedConstructorWithRequiredArgs>
                             </configOptions>
                             <typeMappings>
                                 <typeMapping>DateTime=Instant</typeMapping>
