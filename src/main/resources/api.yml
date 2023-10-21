@@ -105,7 +105,6 @@ components:
     AccountDto:
       example:
         id: 0
-      $ref: '#/components/schemas/MoneyDto'
       properties:
         id:
           format: int64
@@ -117,9 +116,7 @@ components:
         description:
           type: string
         balance:
-          type: MoneyDto
-        currency:
-          type: string
+          $ref: '#/components/schemas/MoneyDto'
     Error:
       properties:
         code:
