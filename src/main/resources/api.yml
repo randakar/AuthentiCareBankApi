@@ -8,7 +8,7 @@ info:
     url: https://www.gnu.org/licenses/gpl-3.0.en.html
   termsOfService: https://authenticare-bank.com/terms
   title: AuthentiCare Bank
-  version: ${version}
+  version: 0.0.1
 externalDocs:
   description: Find this on github!
   url: https://github.com/randakar/AuthentiCareBankApi
