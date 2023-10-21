@@ -12,14 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = TransactionEntity.TABLE_NAME)
+@Table(name = "transaction")
 @NoArgsConstructor(force = true)
 @Getter
 @Setter
 public class TransactionEntity {
-
-    public static final String ENTITY_NAME = "";
-    public static final String TABLE_NAME = "transaction";
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
