@@ -16,5 +16,5 @@ import java.util.function.Function;
 public interface CustomerMapper extends Function<@NonNull CustomerEntity, CustomerDto> {
 
     @Override
-    CustomerDto apply(@NonNull CustomerEntity customerEntity);
+    CustomerDto apply(CustomerEntity customerEntity);
 }
