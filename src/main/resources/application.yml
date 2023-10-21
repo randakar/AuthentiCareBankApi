@@ -12,4 +12,32 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create
+userconfiguration:
+  users:
+    -
+      name: 'Floris'
+      encodedPassword: '$2a$10$OH.nD4Z4ynv41bEgSKBLOOBGRx040.MIpHFQml7aVVrBGzCHS1Z7.'
+      roles:
+      - 'ADMIN'
+      - 'USER'
+    -
+      name: 'AlexanderKremer'
+      encodedPassword: '$2a$10$9tbSneORIaeGzssWwZIu2.BLr2CLzN9LRv5rAE.82UzIrowwsTElm' ## name in reverse
+      roles:
+        - 'USER'
+    -
+      name: 'JustinLagas'
+      encodedPassword: '$2a$10$JP4R5ppiY22BH5r318uv/u8E2bwpKtRMYp59VeEE108BXPuNIw83a' ## name in reverse
+      roles:
+        - 'USER'
+    -
+      name: 'Ramyaa'
+      encodedPassword: '$2a$10$0Qk4t3aTVXN2yVSy5haf5OSjei62P6apzrp5340Si2CGFknNGsRzW' ## name in reverse
+      roles:
+        - 'USER'
+    -
+      name: 'Riekele'
+      encodedPassword: '$2a$10$YrJB0nXMomPEzMQwoflJ2OhTJ/gPUor0l3S5d3IKKdbNXQAk9oso.' ## name in reverse
+      roles:
+        - 'USER'
 
