@@ -69,19 +69,19 @@ components:
   schemas:
     CustomerDto:
       example:
-        firstname: firstname
         id: 0
         email: email
-        lastname: lastname
+        firstName: firstname
+        lastName: lastname
       properties:
         id:
           format: int64
           type: integer
-        firstname:
-          type: string
-        lastname:
-          type: string
         email:
+          type: string
+        firstName:
+          type: string
+        lastName:
           type: string
       required:
         - id

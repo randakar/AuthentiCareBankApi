@@ -60,4 +60,8 @@ public class TransactionEntity {
     @Column
     @NonNull
     private String currency;
+
+    @Column
+    @NonNull
+    private String description;
 }

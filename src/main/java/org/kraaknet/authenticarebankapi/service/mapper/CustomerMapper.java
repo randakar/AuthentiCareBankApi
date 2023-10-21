@@ -11,9 +11,9 @@ import java.util.function.Function;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
-        unmappedTargetPolicy = ReportingPolicy.WARN
+        unmappedTargetPolicy = ReportingPolicy.ERROR
 )
-public interface CustomerMapper extends Function<CustomerEntity, CustomerDto> {
+public interface CustomerMapper extends Function<@NonNull CustomerEntity, CustomerDto> {
 
     @Override
     CustomerDto apply(@NonNull CustomerEntity customerEntity);
