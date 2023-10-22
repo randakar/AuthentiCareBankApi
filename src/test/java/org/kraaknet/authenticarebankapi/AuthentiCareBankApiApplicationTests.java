@@ -22,7 +22,7 @@ class AuthentiCareBankApiApplicationTests {
 
     @Container
     @ServiceConnection
-    private static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer(DockerImageName.parse("postgres:13.1-alpine"));
+    private static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.1-alpine"));
 
     @Test
     void testContextLoads() {
