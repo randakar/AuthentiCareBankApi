@@ -95,6 +95,7 @@ components:
           type: number
           description: Amount expressed as a decimal number of major currency units
           format: decimal
+          minimum: 0
           example: 99.95
         currency:
           $ref: '#/components/schemas/currencyCode'
