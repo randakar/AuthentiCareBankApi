@@ -35,7 +35,9 @@ public class CustomerController implements CustomerApi {
     @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity<CustomerDto> getCustomerById(Long id) {
         log.info("getCustomerById({})", id);
-        return ResponseEntity.of(customerService.findCustomerById(id));
+        return customerService.findCustomerById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
