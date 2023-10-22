@@ -1,4 +1,4 @@
-package org.kraaknet.authenticarebankapi.config;
+package org.kraaknet.authenticarebankapi.config.model;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 

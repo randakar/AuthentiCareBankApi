@@ -2,6 +2,7 @@ package org.kraaknet.authenticarebankapi.config;
 
 import lombok.RequiredArgsConstructor;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.kraaknet.authenticarebankapi.config.model.UserListConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
