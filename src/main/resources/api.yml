@@ -41,6 +41,8 @@ paths:
       tags:
         - customer
       x-accepts: application/json
+      security:
+        - BasicAuth: []
   /customer/{id}:
     get:
       operationId: getCustomerById
