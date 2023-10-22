@@ -36,7 +36,7 @@ public class CustomerService {
                 .ifPresent(existingCustomer -> {
                     throw new CreationFailedException("Customer already exists."); });
 
-        CustomerEntity result = repository.create(customerMapper.toEntity(customerModel));
+        CustomerEntity result = repository.save(customerMapper.toEntity(customerModel));
         return customerMapper.toViewModel(result);
 
     }
