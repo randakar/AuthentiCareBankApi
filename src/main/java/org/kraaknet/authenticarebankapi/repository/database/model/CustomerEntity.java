@@ -29,7 +29,7 @@ public class CustomerEntity {
 
     @Column
     @NaturalId
-    private String username;
+    private String userName;
 
     @Column(name = "first_name", nullable = false)
     @Nullable
