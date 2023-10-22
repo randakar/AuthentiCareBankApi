@@ -4,9 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.kraaknet.authenticarebankapi.annotations.WithMockAdminUser;
 import org.kraaknet.authenticarebankapi.annotations.WithMockCustomerUser;
 import org.kraaknet.authenticarebankapi.annotations.WithMockUnknownUser;
+import org.kraaknet.authenticarebankapi.controller.model.CustomerModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.security.test.context.support.WithAnonymousUser;
@@ -26,14 +29,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Slf4j
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration
 @Testcontainers
+@AutoConfigureMockMvc
 class AuthentiCareBankApiApplicationTests {
 
     @Container
@@ -77,16 +81,30 @@ class AuthentiCareBankApiApplicationTests {
 
     @Test
     @WithMockUnknownUser
-    void givenUserUnknownWhenCallGetCurrentCustomer_thenReturnNotFound() throws Exception {
+    void givenUserUnknownWhenCallGetCurrentCustomerThenReturnNotFound() throws Exception {
         mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockCustomerUser
-    void givenUserExistsWhenCallGetCurrentCustomer_thenReturnCustomerDetails() throws Exception {
+    void givenUserExistsWhenCallGetCurrentCustomerThenReturnCustomerDetails() throws Exception {
         mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @WithMockAdminUser
+    void givenAdminUserWhenCallCreateCustomerThenReturnNewCustomer() throws Exception {
+        var newCustomer = CustomerModel.builder()
+                .userName("Floris")
+                .firstName("Floris")
+                .lastName("Kraak")
+                .email("randakar@gmail.com")
+                .build();
+        mvc.perform(post("/customer", newCustomer).contentType(MediaType.APPLICATION_JSON.getMediaType()))
+                .andExpect(status().isCreated())
+                .andExpect(content().json("{}"));
     }
 
 
