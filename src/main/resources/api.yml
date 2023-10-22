@@ -71,11 +71,6 @@ paths:
       tags:
         - customer
       x-accepts: application/json
-  /customer:
-    post:
-      operationId: createCustomer
-      parameters:
-        -
 
 components:
   securitySchemes:
