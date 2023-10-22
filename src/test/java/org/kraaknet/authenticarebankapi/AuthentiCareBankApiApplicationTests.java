@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.kraaknet.authenticarebankapi.annotations.WithMockCustomerUser;
 import org.kraaknet.authenticarebankapi.annotations.WithMockUnknownUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -83,7 +84,7 @@ class AuthentiCareBankApiApplicationTests {
     }
 
     @Test
-    @WithMockUser(username = "Floris")
+    @WithMockCustomerUser
     void givenUserExistsWhenCallGetCurrentCustomer_thenReturnCustomerDetails() throws Exception {
         mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
                 .andExpect(status().isNotFound());
