@@ -14,6 +14,8 @@ externalDocs:
   url: https://github.com/randakar/AuthentiCareBankApi
 servers:
   - url: /
+security:
+  - BasicAuth: []
 tags:
   - description: Operations on accounts
     name: account
@@ -66,6 +68,10 @@ paths:
         - customer
       x-accepts: application/json
 components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
   schemas:
 
     currencyCode:
