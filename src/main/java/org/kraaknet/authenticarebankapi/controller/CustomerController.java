@@ -3,7 +3,6 @@ package org.kraaknet.authenticarebankapi.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kraaknet.authenticarebankapi.controller.api.CustomerApi;
-import org.kraaknet.authenticarebankapi.controller.exceptions.NotAuthorizedException;
 import org.kraaknet.authenticarebankapi.controller.model.CustomerDto;
 import org.kraaknet.authenticarebankapi.service.CustomerService;
 import org.kraaknet.authenticarebankapi.service.security.UserService;
@@ -25,8 +24,9 @@ public class CustomerController implements CustomerApi {
     public ResponseEntity<CustomerDto> getCurrentCustomer() {
         log.info("getCurrentCustomer()");
         String userName = userService.getCurrentUser().getUsername();
-        var customer = customerService.findCustomerByUserName(userName).orElseThrow(NotAuthorizedException::new);
-        return ResponseEntity.ok(customer);
+        return customerService.findCustomerByUserName(userName)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Override
