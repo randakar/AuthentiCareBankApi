@@ -33,7 +33,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerModel'
+                $ref: '#/components/schemas/CustomerViewModel'
           description: successful operation
         404:
           content: {}
@@ -62,7 +62,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerModel'
+                $ref: '#/components/schemas/CustomerViewModel'
           description: successful operation
         404:
           content: {}
