@@ -1,5 +1,6 @@
 package org.kraaknet.authenticarebankapi.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kraaknet.authenticarebankapi.controller.api.CustomerApi;
@@ -21,6 +22,7 @@ public class CustomerController implements CustomerApi {
 
 
     @Override
+    @RolesAllowed("ROLE_USER")
     public ResponseEntity<CustomerDto> getCurrentCustomer() {
         log.info("getCurrentCustomer()");
         String userName = userService.getCurrentUser().getUsername();
@@ -30,6 +32,7 @@ public class CustomerController implements CustomerApi {
     }
 
     @Override
+    @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity<CustomerDto> getCustomerById(Long id) {
         log.info("getCustomerById({})", id);
         return ResponseEntity.of(customerService.findCustomerById(id));
