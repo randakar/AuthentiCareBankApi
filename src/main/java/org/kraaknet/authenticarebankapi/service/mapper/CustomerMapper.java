@@ -1,7 +1,7 @@
 package org.kraaknet.authenticarebankapi.service.mapper;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.kraaknet.authenticarebankapi.controller.model.CustomerDto;
+import org.kraaknet.authenticarebankapi.controller.model.CustomerViewModel;
 import org.kraaknet.authenticarebankapi.repository.database.model.CustomerEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
@@ -13,8 +13,8 @@ import java.util.function.Function;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.ERROR
 )
-public interface CustomerMapper extends Function<@NonNull CustomerEntity, CustomerDto> {
+public interface CustomerMapper extends Function<@NonNull CustomerEntity, CustomerViewModel> {
 
     @Override
-    CustomerDto apply(CustomerEntity customerEntity);
+    CustomerViewModel apply(CustomerEntity customerEntity);
 }
