@@ -1,5 +1,6 @@
 package org.kraaknet.authenticarebankapi;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +11,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -23,8 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Slf4j
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration
@@ -56,15 +60,23 @@ class AuthentiCareBankApiApplicationTests {
     }
 
     @Test
+    void givenAnonymoususerWhenCallGetCurrentCustomer_thenReturnRedirectionToLogin() throws Exception {
+        mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(header().string("Location","http://localhost/login"))
+                .andReturn();
+    }
+
+    @Test
     @WithMockUser(username = "john", roles = { "ADMIN" })
-    void givenUserUnknown_whenCallGetCurrentCustomer_thenReturnNotFound() throws Exception {
+    void givenUserUnknownWhenCallGetCurrentCustomer_thenReturnNotFound() throws Exception {
         mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockUser(username = "Floris")
-    void givenUserExists_whenCallGetCurrentCustomer_thenReturnCustomerDetails() throws Exception {
+    void givenUserExistsWhenCallGetCurrentCustomer_thenReturnCustomerDetails() throws Exception {
         mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
                 .andExpect(status().isNotFound());
     }
