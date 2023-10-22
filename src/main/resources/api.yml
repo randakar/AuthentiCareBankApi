@@ -24,6 +24,7 @@ tags:
   - description: Money transfer
     name: transaction
 paths:
+
   /customer/me:
     get:
       operationId: getCurrentCustomer
@@ -32,7 +33,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerDto'
+                $ref: '#/components/schemas/CustomerModel'
           description: successful operation
         404:
           content: {}
@@ -43,6 +44,7 @@ paths:
       x-accepts: application/json
       security:
         - BasicAuth: []
+
   /customer/{id}:
     get:
       operationId: getCustomerById
@@ -60,7 +62,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerDto'
+                $ref: '#/components/schemas/CustomerModel'
           description: successful operation
         404:
           content: {}
@@ -69,11 +71,18 @@ paths:
       tags:
         - customer
       x-accepts: application/json
+  /customer:
+    post:
+      operationId: createCustomer
+      parameters:
+        -
+
 components:
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
+
   schemas:
 
     currencyCode:
@@ -88,7 +97,7 @@ components:
       pattern: '[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}'
       example: 'NL20INGB0001234567'
 
-    MoneyDto:
+    MoneyModel:
       type: object
       properties:
         amount:
@@ -103,17 +112,13 @@ components:
         - amount
         - currency
 
-    CustomerDto:
+    CustomerModel:
       example:
-        id: 0
         userName: Fooman
         email: email@rabobank.nl
         firstName: Fooman
         lastName: Barname
       properties:
-        id:
-          format: int64
-          type: integer
         userName:
           type: string
           pattern: '[A-Z]{3,}'
@@ -127,7 +132,17 @@ components:
         - id
       type: object
 
-    AccountDto:
+    CustomerViewModel:
+      allOf: # Complete view
+        - $ref: '#/components/schemas/CustomerModel'
+      example:
+        id: 0
+      properties:
+        id:
+          format: int64
+          type: integer
+
+    AccountModel:
       example:
         id: 0
         iban: 'NL20INGB0001234567'
@@ -148,9 +163,9 @@ components:
         description:
           type: string
         balance:
-          $ref: '#/components/schemas/MoneyDto'
+          $ref: '#/components/schemas/MoneyModel'
 
-    TransactionDto:
+    TransactionModel:
       properties:
         id:
           format: int64
@@ -163,7 +178,7 @@ components:
         to:
           $ref: '#/components/schemas/iban'
         amount:
-          $ref: '#/components/schemas/MoneyDto'
+          $ref: '#/components/schemas/MoneyModel'
         description:
           type: string
     Error:
