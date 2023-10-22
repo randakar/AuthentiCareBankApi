@@ -71,6 +71,24 @@ paths:
       tags:
         - customer
       x-accepts: application/json
+  /customer:
+    post:
+      operationId: createCustomer
+      summary: Create a new customer
+      requestBody:
+        description: Customer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerModel'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerViewModel'
 
 components:
   securitySchemes:
