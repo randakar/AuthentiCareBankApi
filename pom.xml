@@ -251,12 +251,15 @@
                                 <java8>true</java8>
                                 <openApiNullable>false</openApiNullable>
                                 <interfaceOnly>true</interfaceOnly>
+                                <delegatePattern>false</delegatePattern>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <useJakartaEe>true</useJakartaEe>
                                 <useOptional>true</useOptional>
                                 <useEnumCaseInsensitive>true</useEnumCaseInsensitive>
                                 <useResponseEntity>false</useResponseEntity>
                                 <generatedConstructorWithRequiredArgs>true</generatedConstructorWithRequiredArgs>
+                                <performBeanValidation>true</performBeanValidation>
+                                <unhandledException>false</unhandledException>
                                 <additionalModelTypeAnnotations>@lombok.AllArgsConstructor;@lombok.Builder</additionalModelTypeAnnotations>
                             </configOptions>
                             <typeMappings>
