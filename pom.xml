@@ -245,6 +245,8 @@
                             <apiPackage>org.kraaknet.authenticarebankapi.controller.api</apiPackage>
                             <modelPackage>org.kraaknet.authenticarebankapi.controller.model</modelPackage>
                             <skipValidateSpec>false</skipValidateSpec>
+                            <generateApiDocumentation>true</generateApiDocumentation>
+                            <generateModelDocumentation>true</generateModelDocumentation>
                             <configOptions>
                                 <java8>true</java8>
                                 <openApiNullable>false</openApiNullable>
