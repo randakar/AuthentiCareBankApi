@@ -8,12 +8,14 @@ info:
     url: https://www.gnu.org/licenses/gpl-3.0.en.html
   termsOfService: https://authenticare-bank.com/terms
   title: AuthentiCare Bank
-  version: ${version}
+  version: 0.0.1
 externalDocs:
   description: Find this on github!
   url: https://github.com/randakar/AuthentiCareBankApi
 servers:
   - url: /
+security:
+  - BasicAuth: []
 tags:
   - description: Operations on accounts
     name: account
@@ -39,6 +41,8 @@ paths:
       tags:
         - customer
       x-accepts: application/json
+      security:
+        - BasicAuth: []
   /customer/{id}:
     get:
       operationId: getCustomerById
@@ -66,26 +70,102 @@ paths:
         - customer
       x-accepts: application/json
 components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
   schemas:
+
+    currencyCode:
+      type: string
+      description: 3 letter currency code as defined by ISO-4217
+      pattern: "[A-Z]{3}"
+      format: iso-4217
+      example: EUR
+
+    iban:
+      type: string
+      pattern: '[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}'
+      example: 'NL20INGB0001234567'
+
+    MoneyDto:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Amount expressed as a decimal number of major currency units
+          format: decimal
+          minimum: 0
+          example: 99.95
+        currency:
+          $ref: '#/components/schemas/currencyCode'
+      required:
+        - amount
+        - currency
+
     CustomerDto:
       example:
-        firstname: firstname
         id: 0
-        email: email
-        lastname: lastname
+        userName: Fooman
+        email: email@rabobank.nl
+        firstName: Fooman
+        lastName: Barname
       properties:
         id:
           format: int64
           type: integer
-        firstname:
+        userName:
           type: string
-        lastname:
-          type: string
+          pattern: '[A-Z]{3,}'
         email:
+          type: string
+        firstName:
+          type: string
+        lastName:
           type: string
       required:
         - id
       type: object
+
+    AccountDto:
+      example:
+        id: 0
+        iban: 'NL20INGB0001234567'
+        owner: 0
+        name: "DeBetaalRekening"
+        description: 'Mijn Eerste Rekening!'
+      properties:
+        id:
+          format: int64
+          type: integer
+        iban:
+          $ref: '#/components/schemas/iban'
+        owner:
+          format: int64
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        balance:
+          $ref: '#/components/schemas/MoneyDto'
+
+    TransactionDto:
+      properties:
+        id:
+          format: int64
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        from:
+          $ref: '#/components/schemas/iban'
+        to:
+          $ref: '#/components/schemas/iban'
+        amount:
+          $ref: '#/components/schemas/MoneyDto'
+        description:
+          type: string
     Error:
       properties:
         code:

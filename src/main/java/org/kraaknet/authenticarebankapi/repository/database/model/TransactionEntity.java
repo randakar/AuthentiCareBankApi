@@ -1,15 +1,6 @@
 package org.kraaknet.authenticarebankapi.repository.database.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,14 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = TransactionEntity.TABLE_NAME)
+@Table(name = "transaction")
 @NoArgsConstructor(force = true)
 @Getter
 @Setter
 public class TransactionEntity {
-
-    public static final String ENTITY_NAME = "";
-    public static final String TABLE_NAME = "transaction";
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -39,11 +27,11 @@ public class TransactionEntity {
     @NonNull
     private LocalDateTime timestamp = LocalDateTime.now();
 
-    @Column
+    @Basic
     @Nullable
     private String fromIban;
 
-    @Column
+    @Basic
     @Nullable
     private String toIban;
 
@@ -53,11 +41,10 @@ public class TransactionEntity {
     @NonNull
     private List<AccountEntity> affectedAccounts = new ArrayList<>();
 
-    @Column
-    @NonNull
-    private Long amount;
+    @Embedded
+    private MoneyEntity amount;
 
     @Column
     @NonNull
-    private String currency;
+    private String description;
 }

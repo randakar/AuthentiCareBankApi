@@ -2,21 +2,16 @@ package org.kraaknet.authenticarebankapi.config;
 
 import lombok.RequiredArgsConstructor;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.kraaknet.authenticarebankapi.config.model.UserListConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -26,14 +21,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(@NonNull UserListConfig userListConfig) {
-        List<UserDetails> users = userListConfig.users().stream()
-                .map(userConfig -> User.withUsername(userConfig.name())
-                        .password(userConfig.encodedPassword())
-                        .roles(userConfig.roles().toArray(String[]::new))
-                        .build())
-                .toList();
-
-        return new InMemoryUserDetailsManager(users);
+        return new InMemoryUserDetailsManager(userListConfig.getUsersAsUserDetails());
     }
 
     @Bean
@@ -50,13 +38,5 @@ public class SecurityConfig {
                 .logout(LogoutConfigurer::permitAll);
         return http.build();
     }
-
-
-    // Password Encoding
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
 
 }

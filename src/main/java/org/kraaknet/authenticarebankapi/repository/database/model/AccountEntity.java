@@ -1,14 +1,6 @@
 package org.kraaknet.authenticarebankapi.repository.database.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OrderBy;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,7 +27,7 @@ public class AccountEntity {
     private long id;
 
     @NaturalId
-    @Column(nullable = false)
+    @Basic(optional = false)
     @NonNull
     private String iban;
 
@@ -43,17 +35,17 @@ public class AccountEntity {
     @NonNull
     private CustomerEntity owner;
 
-    @Column(name = "balance", nullable = false)
-    @NonNull
-    private Long balance;
-
-    @Column(name = "currency", nullable = false)
-    @NonNull
-    private String currency;
-
-    @Column(nullable = false)
+    @Basic(optional = false)
     @NonNull
     private String name;
+
+    @Embedded
+    @NonNull
+    private MoneyEntity balance;
+
+    @Basic(optional = false)
+    @NonNull
+    private String description;
 
     @ManyToMany
     @OrderBy("timestamp ASC")

@@ -14,12 +14,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerService {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerRepository repository;
     private final CustomerMapper customerMapper;
 
 
     public Optional<CustomerDto> findCustomerById(long id) {
-        return customerRepository.findById(id)
+        return repository.findById(id)
                 .map(customerMapper);
+    }
+
+    public Optional<CustomerDto> findCustomerByUserName(String userName) {
+        return repository.findByUserName(userName);
     }
 }
