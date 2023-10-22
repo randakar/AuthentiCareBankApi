@@ -33,7 +33,8 @@ class AuthentiCareBankApiApplicationTests {
 
     @Container
     @ServiceConnection
-    private static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.1-alpine"));
+    @SuppressWarnings("unused")
+    private static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.1-alpine"));
 
     @Autowired
     private WebApplicationContext context;
