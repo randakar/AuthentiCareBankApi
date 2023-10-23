@@ -44,12 +44,12 @@ public class CustomerController implements CustomerApi {
 
     @Override
     public ResponseEntity<CustomerViewModel> createCustomer(CustomerModel customerModel) {
-        log.info("createCustomer({})", customerModel);
+        log.warn("createCustomer({})", customerModel);
         var resultModel = customerService.createCustomer(customerModel);
         var uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(resultModel.getId()).toUri();
-        log.debug("uri: {}", uri.toASCIIString());
+        log.warn("uri: {}", uri.toASCIIString());
         return ResponseEntity.created(uri).build();
     }
 }

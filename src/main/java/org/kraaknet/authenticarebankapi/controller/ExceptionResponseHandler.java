@@ -2,6 +2,7 @@ package org.kraaknet.authenticarebankapi.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.kraaknet.authenticarebankapi.controller.exceptions.CreationFailedException;
 import org.kraaknet.authenticarebankapi.controller.exceptions.NotAuthorizedException;
 import org.kraaknet.authenticarebankapi.controller.exceptions.NotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -32,8 +33,14 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
         log.warn("notFoundExceptionHandler({}, {})", e, request);
 
         var message = "Not found.";
-        return handleExceptionInternal(e, message, new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
+        return handleExceptionInternal(e, message, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
+    @ExceptionHandler(value = CreationFailedException.class)
+    public ResponseEntity<Object> creationFailedExceptionHandler(@NonNull CreationFailedException e,
+                                                           @NonNull WebRequest request) {
+        log.warn("creationFailedExceptionHandler({}, {})", e, request);
+        return handleExceptionInternal(e, e.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
 
 }
