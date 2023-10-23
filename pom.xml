@@ -292,22 +292,23 @@
                                 <generatedConstructorWithRequiredArgs>true</generatedConstructorWithRequiredArgs>
                                 <performBeanValidation>true</performBeanValidation>
                                 <unhandledException>false</unhandledException>
-<!--                                <additionalModelTypeAnnotations>@lombok.AllArgsConstructor;@lombok.experimental.SuperBuilder;@lombok.extern.jackson.Jacksonized</additionalModelTypeAnnotations>-->
-                            </configOptions>
-                            <typeMappings>
-                                <typeMapping>DateTime=Instant</typeMapping>
-                                <typeMapping>Date=LocalDate</typeMapping>
-                                <typeMappings>integer=Long,int=Long</typeMappings>
-                            </typeMappings>
-                            <importMappings>
-                                <importMapping>Instant=java.time.Instant</importMapping>
-                                <importMapping>Date=java.time.LocalDateTime</importMapping>
-                            </importMappings>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+                                <!-- Unfortunately the polymorohic typing in the api spec breaks putting these annotations on the generated model classes. :( -->
+                                <!-- <additionalModelTypeAnnotations>@lombok.AllArgsConstructor;@lombok.experimental.SuperBuilder;@lombok.extern.jackson.Jacksonized</additionalModelTypeAnnotations> -->
+                           </configOptions>
+                           <typeMappings>
+                               <typeMapping>DateTime=Instant</typeMapping>
+                               <typeMapping>Date=LocalDate</typeMapping>
+                               <typeMappings>integer=Long,int=Long</typeMappings>
+                           </typeMappings>
+                           <importMappings>
+                               <importMapping>Instant=java.time.Instant</importMapping>
+                               <importMapping>Date=java.time.LocalDateTime</importMapping>
+                           </importMappings>
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin>
+       </plugins>
+   </build>
 
 </project>
