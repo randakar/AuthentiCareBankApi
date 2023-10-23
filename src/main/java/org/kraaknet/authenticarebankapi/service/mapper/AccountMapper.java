@@ -1,11 +1,8 @@
 package org.kraaknet.authenticarebankapi.service.mapper;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.kraaknet.authenticarebankapi.controller.model.AccountModel;
-import org.kraaknet.authenticarebankapi.controller.model.AccountOverviewModel;
 import org.kraaknet.authenticarebankapi.controller.model.AccountViewModel;
 import org.kraaknet.authenticarebankapi.repository.database.model.AccountEntity;
-import org.kraaknet.authenticarebankapi.repository.database.model.CardEntity;
 import org.kraaknet.authenticarebankapi.repository.database.model.CustomerEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,7 +14,7 @@ import java.util.List;
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.ERROR,
-        uses = {MoneyMapper.class, CustomerMapper.class, CardMapper.class}
+        uses = {MoneyMapper.class}
 )
 public interface AccountMapper {
 
@@ -39,9 +36,5 @@ public interface AccountMapper {
     @Mapping(target = "cards", ignore = true)
     @Mapping(target = "transactionHistory", ignore = true)
     AccountEntity toAccountEntity(AccountModel accountModel);
-
-    @Mapping(source = "owners", target="owners")
-    @Mapping(source = "cards", target="cards")
-    AccountOverviewModel toAccountOverviewModel(AccountEntity account, @NonNull List<CustomerEntity> owners, @NonNull List<CardEntity> cards);
 
 }

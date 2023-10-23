@@ -9,6 +9,7 @@ import org.kraaknet.authenticarebankapi.controller.model.AccountViewModel;
 import org.kraaknet.authenticarebankapi.repository.database.AccountRepository;
 import org.kraaknet.authenticarebankapi.repository.database.model.AccountEntity;
 import org.kraaknet.authenticarebankapi.service.mapper.AccountMapper;
+import org.kraaknet.authenticarebankapi.service.mapper.AccountOverviewMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,25 +20,27 @@ import java.util.Optional;
 public class AccountService {
 
     private final AccountRepository repository;
-    private final AccountMapper mapper;
+
+    private final AccountMapper accountMapper;
+    private final AccountOverviewMapper accountOverviewMapper;
 
     public AccountViewModel createAccount(AccountModel accountModel) {
         repository.findByIban(accountModel.getIban())
                 .ifPresent(existingAccount -> {
                     throw new CreationFailedException("Account already exists."); });
 
-        AccountEntity entity = mapper.toAccountEntity(accountModel);
+        AccountEntity entity = accountMapper.toAccountEntity(accountModel);
         AccountEntity result = repository.save(entity);
-        return mapper.toAccountViewModel(result);
+        return accountMapper.toAccountViewModel(result);
     }
 
     public Optional<AccountViewModel> findAccountById(Long id) {
         return repository.findById(id)
-                .map(mapper::toAccountViewModel);
+                .map(accountMapper::toAccountViewModel);
     }
 
     public Optional<AccountOverviewModel> findAccountOverviewById(Long id) {
         return repository.findById(id)
-                .map(account -> mapper.toAccountOverviewModel(account, account.getOwners(), account.getCards()));
+                .map(accountOverviewMapper::toAccountOverviewModel);
     }
 }

@@ -22,7 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerController implements CustomerApi {
 
-    private final UserService userService;
     private final CustomerService customerService;
 
 
@@ -30,8 +29,8 @@ public class CustomerController implements CustomerApi {
     @RolesAllowed("ROLE_USER")
     public ResponseEntity<CustomerViewModel> getCurrentCustomer() {
         log.debug("getCurrentCustomer()");
-        String userName = userService.getCurrentUser().getUsername();
-        return customerService.findCustomerByUserName(userName)
+        return customerService
+                .findCurrentCustomer()
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

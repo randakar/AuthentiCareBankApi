@@ -12,8 +12,9 @@ import org.kraaknet.authenticarebankapi.controller.model.CustomerViewModel;
 import org.kraaknet.authenticarebankapi.repository.database.CustomerRepository;
 import org.kraaknet.authenticarebankapi.repository.database.model.CustomerEntity;
 import org.kraaknet.authenticarebankapi.service.mapper.AccountMapper;
-import org.kraaknet.authenticarebankapi.service.mapper.CardMapper;
 import org.kraaknet.authenticarebankapi.service.mapper.CustomerMapper;
+import org.kraaknet.authenticarebankapi.service.mapper.CustomerOverviewMapper;
+import org.kraaknet.authenticarebankapi.service.security.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +25,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerService {
 
+    private final UserService userService;
     private final CustomerRepository repository;
 
     private final CustomerMapper customerMapper;
     private final AccountMapper accountMapper;
-    private final CardMapper cardMapper;
+    private final CustomerOverviewMapper customerOverviewMapper;
 
 
     public Optional<CustomerViewModel> findCustomerById(long id) {
@@ -53,13 +55,24 @@ public class CustomerService {
 
     public Optional<CustomerOverviewModel> findCustomerOverview(long id) {
         return repository.findById(id)
-                .map(customerEntity -> customerMapper.toOverviewModel(customerEntity,
-                        customerEntity.getAccounts(),
-                        customerEntity.getCards()));
+                .map(customerOverviewMapper::toOverviewModel);
     }
 
     public List<AccountViewModel> findAccountsForCustomerId(Long id) {
         return repository.findById(id)
+                .map(CustomerEntity::getAccounts)
+                .map(accountMapper::toAccountViewModels)
+                .orElseThrow(NotFoundException::new);
+    }
+
+    public Optional<CustomerViewModel> findCurrentCustomer() {
+        String userName = userService.getCurrentUser().getUsername();
+        return findCustomerByUserName(userName);
+    }
+
+    public List<AccountViewModel> findMyAccounts() {
+        String userName = userService.getCurrentUser().getUsername();
+        return repository.findByUserName(userName)
                 .map(CustomerEntity::getAccounts)
                 .map(accountMapper::toAccountViewModels)
                 .orElseThrow(NotFoundException::new);

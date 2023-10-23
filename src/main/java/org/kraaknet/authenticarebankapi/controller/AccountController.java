@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.kraaknet.authenticarebankapi.controller.api.AccountApi;
 import org.kraaknet.authenticarebankapi.controller.model.*;
 import org.kraaknet.authenticarebankapi.service.AccountService;
+import org.kraaknet.authenticarebankapi.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountController implements AccountApi {
 
+    private final CustomerService customerService;
     private final AccountService accountService;
 
     @Override
@@ -40,7 +42,8 @@ public class AccountController implements AccountApi {
 
     @Override
     public ResponseEntity<List<AccountViewModel>> getMyAccounts() {
-        return AccountApi.super.getMyAccounts();
+        var result = customerService.findMyAccounts();
+        return ResponseEntity.ok(result);
     }
 
     @Override
