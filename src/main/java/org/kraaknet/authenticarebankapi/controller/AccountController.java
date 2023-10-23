@@ -33,7 +33,9 @@ public class AccountController implements AccountApi {
 
     @Override
     public ResponseEntity<AccountOverviewModel> getAccountOvervieuwById(Long id) {
-        return AccountApi.super.getAccountOvervieuwById(id);
+        return accountService.findAccountOverviewById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Override

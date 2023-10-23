@@ -31,10 +31,6 @@ public class AccountEntity {
     @NonNull
     private String iban;
 
-    @ManyToMany
-    @NonNull
-    private List<CustomerEntity> owners;
-
     @Basic(optional = false)
     @NonNull
     private String name;
@@ -46,6 +42,16 @@ public class AccountEntity {
     @Basic(optional = false)
     @NonNull
     private String description;
+
+
+    @ManyToMany
+    @NonNull
+    private List<CustomerEntity> owners;
+
+    @OneToMany
+    @NonNull
+    private List<CardEntity> cards;
+
 
     @ManyToMany
     @OrderBy("timestamp ASC")

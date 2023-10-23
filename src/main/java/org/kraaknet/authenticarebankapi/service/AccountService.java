@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.kraaknet.authenticarebankapi.controller.exceptions.CreationFailedException;
 import org.kraaknet.authenticarebankapi.controller.model.AccountModel;
+import org.kraaknet.authenticarebankapi.controller.model.AccountOverviewModel;
 import org.kraaknet.authenticarebankapi.controller.model.AccountViewModel;
 import org.kraaknet.authenticarebankapi.repository.database.AccountRepository;
 import org.kraaknet.authenticarebankapi.repository.database.model.AccountEntity;
@@ -33,5 +34,10 @@ public class AccountService {
     public Optional<AccountViewModel> findAccountById(Long id) {
         return repository.findById(id)
                 .map(mapper::toAccountViewModel);
+    }
+
+    public Optional<AccountOverviewModel> findAccountOverviewById(Long id) {
+        return repository.findById(id)
+                .map(account -> mapper.toAccountOverviewModel(account, account.getOwners(), account.getCards()));
     }
 }

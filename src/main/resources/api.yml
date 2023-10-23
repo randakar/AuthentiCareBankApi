@@ -434,16 +434,18 @@ components:
       properties:
         iban:
           $ref: '#/components/schemas/iban'
-        owner:
-          type: integer
-          format: int64
         name:
           type: string
         description:
           type: string
+        owners:
+          type: array
+          items:
+            type: integer
+            format: int64
       required:
         - iban
-        - owner
+        - owners
 
     AccountViewModel:
       allOf: # Complete view
@@ -454,11 +456,6 @@ components:
         id:
           type: integer
           format: int64
-        owners:
-          type: array
-          items:
-            type: integer
-            format: int64
         balance:
           $ref: '#/components/schemas/MoneyModel'
       required:
