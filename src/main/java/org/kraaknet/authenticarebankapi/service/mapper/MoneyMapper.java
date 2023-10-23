@@ -21,4 +21,11 @@ public interface MoneyMapper {
         return result;
     }
 
+    default MoneyEntity toMoneyEntity(MoneyModel moneyModel) {
+        var result = new MoneyEntity();
+        result.setCurrency(moneyModel.getCurrency());
+        result.setAmountInCents(moneyModel.getAmount().longValue() * 100);
+        return result;
+    }
+
 }

@@ -1,19 +1,19 @@
 package org.kraaknet.authenticarebankapi.service;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.kraaknet.authenticarebankapi.controller.exceptions.CreationFailedException;
 import org.kraaknet.authenticarebankapi.controller.exceptions.NotFoundException;
-import org.kraaknet.authenticarebankapi.controller.model.AccountModel;
-import org.kraaknet.authenticarebankapi.controller.model.AccountOverviewModel;
-import org.kraaknet.authenticarebankapi.controller.model.AccountViewModel;
-import org.kraaknet.authenticarebankapi.controller.model.TransactionViewModel;
+import org.kraaknet.authenticarebankapi.controller.model.*;
 import org.kraaknet.authenticarebankapi.repository.database.AccountRepository;
 import org.kraaknet.authenticarebankapi.repository.database.model.AccountEntity;
+import org.kraaknet.authenticarebankapi.repository.database.model.TransactionEntity;
 import org.kraaknet.authenticarebankapi.service.mapper.AccountMapper;
-import org.kraaknet.authenticarebankapi.service.mapper.AccountOverviewMapper;
 import org.kraaknet.authenticarebankapi.service.mapper.TransactionMapper;
 import org.springframework.stereotype.Service;
+import org.kraaknet.authenticarebankapi.service.mapper.AccountOverviewMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +28,8 @@ public class AccountService {
     private final AccountMapper accountMapper;
     private final AccountOverviewMapper accountOverviewMapper;
     private final TransactionMapper transactionMapper;
+
+    private final TransactionService transactionService;
 
     public AccountViewModel createAccount(AccountModel accountModel) {
         repository.findByIban(accountModel.getIban())
@@ -55,4 +57,20 @@ public class AccountService {
                 .map(transactionMapper::toTransactionViewModels)
                 .orElseThrow(NotFoundException::new);
     }
+
+    public TransactionEntity transferAmountFromAccount(Long id, TransferModel transferModel) {
+        var fromAccount = repository.findById(id).orElseThrow(NotFoundException::new);
+        var toAccount = repository.findByIban(transferModel.getTo()).orElseThrow(NotFoundException::new);
+        if(!StringUtils.equalsAnyIgnoreCase(transferModel.getFrom(), fromAccount.getIban())) {
+            throw new ValidationException("Invalid from account in transfer"); // or perhaps a notfound exception as well, for security.
+        }
+        return transactionService.transferAmountFromAccount(fromAccount, toAccount, transferModel);
+    }
+
+
+    public TransactionEntity withdrawAmountFromAccount(Long id, WithDrawModel withDrawModel) {
+        var account = repository.findById(id).orElseThrow(NotFoundException::new);
+        return transactionService.withdrawAmountFromAccount(account, withDrawModel);
+    }
+
 }

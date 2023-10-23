@@ -469,7 +469,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CustomerViewModel'
-        cards:
+        card:
           $ref: '#/components/schemas/CardModel'
 
     CardModel:

@@ -54,11 +54,13 @@ public class AccountController implements AccountApi {
 
     @Override
     public ResponseEntity<Void> transferAmount(Long id, TransferModel transferModel) {
-        return AccountApi.super.transferAmount(id, transferModel);
+        accountService.transferAmountFromAccount(id, transferModel);
+        return ResponseEntity.ok(null); // Todo: this should probably be returning something
     }
 
     @Override
     public ResponseEntity<Void> withdrawAmount(Long id, WithDrawModel withDrawModel) {
-        return AccountApi.super.withdrawAmount(id, withDrawModel);
+        accountService.withdrawAmountFromAccount(id, withDrawModel);
+        return ResponseEntity.ok(null); // Todo: this should probably be returning something
     }
 }
