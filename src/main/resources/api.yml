@@ -43,8 +43,6 @@ paths:
       tags:
         - customer
       x-accepts: application/json
-      security:
-        - BasicAuth: []
 
   /customer/{id}:
     get:
@@ -72,8 +70,6 @@ paths:
       tags:
         - customer
       x-accepts: application/json
-      security:
-        - BasicAuth: [ ]
 
   /customer:
     post:
@@ -99,8 +95,6 @@ paths:
       x-accepts: application/json
       tags:
         - customer
-      security:
-        - BasicAuth: [ ]
 
 components:
   securitySchemes:
