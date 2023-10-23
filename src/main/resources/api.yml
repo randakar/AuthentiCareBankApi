@@ -13,6 +13,7 @@ externalDocs:
   description: Find this on github!
   url: https://github.com/randakar/AuthentiCareBankApi
 servers:
+  - url: http://localhost:8080/
   - url: /
 security:
   - BasicAuth: []
@@ -71,6 +72,9 @@ paths:
       tags:
         - customer
       x-accepts: application/json
+      security:
+        - BasicAuth: [ ]
+
   /customer:
     post:
       operationId: createCustomer
