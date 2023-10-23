@@ -1,5 +1,7 @@
 package org.kraaknet.authenticarebankapi;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +41,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Testcontainers
 @AutoConfigureMockMvc
 class AuthentiCareBankApiApplicationTests {
+
+    private final ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
 
     @Container
     @ServiceConnection
@@ -117,7 +121,9 @@ class AuthentiCareBankApiApplicationTests {
                 .lastName("Kraak")
                 .email("randakar@gmail.com")
                 .build();
-        mvc.perform(post("/customer", newCustomer).contentType(MediaType.APPLICATION_JSON.getMediaType()))
+        mvc.perform(post("/customer")
+                        .content(objectWriter.writeValueAsString(newCustomer))
+                        .contentType(MediaType.APPLICATION_JSON.getMediaType()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{}"));
     }
