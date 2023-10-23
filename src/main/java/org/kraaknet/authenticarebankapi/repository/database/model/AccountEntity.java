@@ -45,6 +45,7 @@ public class AccountEntity {
 
 
     @ManyToMany
+    @JoinTable
     @NonNull
     private List<CustomerEntity> owners;
 
@@ -54,6 +55,7 @@ public class AccountEntity {
 
 
     @ManyToMany
+    @JoinTable
     @OrderBy("timestamp ASC")
     @NonNull
     private List<TransactionEntity> transactionHistory = new ArrayList<>();

@@ -47,4 +47,17 @@ public class TransactionEntity {
     @Column
     @NonNull
     private String description;
+
+    @Basic
+    private String transactionType;
+
+    @Basic
+    private String transferType;
+
+    @Basic
+    private String authorizationMethod;
+
+    @Basic
+    private String authorizationSignature;
+
 }

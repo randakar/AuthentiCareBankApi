@@ -583,8 +583,6 @@ components:
           $ref: '#/components/schemas/MoneyModel'
         description:
           type: string
-        authorization:
-          type: string
         transferType:
           type: string
           pattern: (withdrawal|transfer)

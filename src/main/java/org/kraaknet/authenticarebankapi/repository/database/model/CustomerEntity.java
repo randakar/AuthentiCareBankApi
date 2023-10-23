@@ -44,6 +44,7 @@ public class CustomerEntity {
     private String email;
 
     @ManyToMany
+    @JoinTable
     @OrderBy("name ASC")
     @NonNull
     private List<AccountEntity> accounts = new ArrayList<>();
