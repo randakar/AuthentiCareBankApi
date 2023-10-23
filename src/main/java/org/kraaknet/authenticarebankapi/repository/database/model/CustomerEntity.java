@@ -43,7 +43,7 @@ public class CustomerEntity {
     @Nullable
     private String email;
 
-    @OneToMany(mappedBy="owner")
+    @ManyToMany
     @OrderBy("name ASC")
     @NonNull
     private List<AccountEntity> accounts = new ArrayList<>();

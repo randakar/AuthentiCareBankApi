@@ -31,9 +31,9 @@ public class AccountEntity {
     @NonNull
     private String iban;
 
-    @ManyToOne
+    @ManyToMany
     @NonNull
-    private CustomerEntity owner;
+    private List<CustomerEntity> owners;
 
     @Basic(optional = false)
     @NonNull

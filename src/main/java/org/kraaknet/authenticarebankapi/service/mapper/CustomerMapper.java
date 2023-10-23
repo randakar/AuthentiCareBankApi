@@ -1,7 +1,6 @@
 package org.kraaknet.authenticarebankapi.service.mapper;
 
 import org.kraaknet.authenticarebankapi.controller.model.*;
-import org.kraaknet.authenticarebankapi.repository.database.model.AccountEntity;
 import org.kraaknet.authenticarebankapi.repository.database.model.CustomerEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,6 +22,7 @@ public interface CustomerMapper  {
     CustomerEntity toEntity(CustomerModel model);
 
 
+    @Mapping(source = "accounts", target = "accounts")
     CustomerOverviewModel toOverviewModel(CustomerEntity customerEntity,
                                                   List<AccountViewModel> accounts,
                                                   List<CardModel> cards);
