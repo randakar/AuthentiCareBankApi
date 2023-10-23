@@ -19,7 +19,7 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = NotAuthorizedException.class)
     public ResponseEntity<Object> notAuthorizedExceptionHandler(@NonNull NotAuthorizedException e,
-                                                               @NonNull WebRequest request) {
+                                                                @NonNull WebRequest request) {
         log.warn("notAuthorizedExceptionHandler({}, {})", e, request);
 
         var message = "Not authorized.";
@@ -29,7 +29,7 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = NotFoundException.class)
     public ResponseEntity<Object> notFoundExceptionHandler(@NonNull NotFoundException e,
-                                                                @NonNull WebRequest request) {
+                                                           @NonNull WebRequest request) {
         log.warn("notFoundExceptionHandler({}, {})", e, request);
 
         var message = "Not found.";
@@ -38,7 +38,7 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = CreationFailedException.class)
     public ResponseEntity<Object> creationFailedExceptionHandler(@NonNull CreationFailedException e,
-                                                           @NonNull WebRequest request) {
+                                                                 @NonNull WebRequest request) {
         log.warn("creationFailedExceptionHandler({}, {})", e, request);
         return handleExceptionInternal(e, e.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
