@@ -28,7 +28,8 @@ public class CustomerService {
     }
 
     public Optional<CustomerViewModel> findCustomerByUserName(@NonNull String userName) {
-        return repository.findByUserName(userName);
+        return repository.findByUserName(userName)
+                .map(customerMapper::toViewModel);
     }
 
     public CustomerViewModel createCustomer(@NonNull CustomerModel customerModel) {
