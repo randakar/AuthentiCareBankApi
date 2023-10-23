@@ -7,15 +7,10 @@ spring:
 userconfiguration:
   users:
     -
-      name: 'Floris'
-      encodedPassword: '$2a$10$OH.nD4Z4ynv41bEgSKBLOOBGRx040.MIpHFQml7aVVrBGzCHS1Z7.'
-      roles:
-        - 'ADMIN'
-        - 'USER'
-    -
       name: 'AlexanderKremer'
       encodedPassword: '$2a$10$9tbSneORIaeGzssWwZIu2.BLr2CLzN9LRv5rAE.82UzIrowwsTElm' ## name in reverse
       roles:
+        - 'ADMIN'
         - 'USER'
     -
       name: 'JustinLagas'
