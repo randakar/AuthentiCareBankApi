@@ -10,6 +10,8 @@ import org.kraaknet.authenticarebankapi.repository.database.model.AccountEntity;
 import org.kraaknet.authenticarebankapi.service.mapper.AccountMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -26,5 +28,10 @@ public class AccountService {
         AccountEntity entity = mapper.toAccountEntity(accountModel);
         AccountEntity result = repository.save(entity);
         return mapper.toAccountViewModel(result);
+    }
+
+    public Optional<AccountViewModel> findAccountById(Long id) {
+        return repository.findById(id)
+                .map(mapper::toAccountViewModel);
     }
 }
