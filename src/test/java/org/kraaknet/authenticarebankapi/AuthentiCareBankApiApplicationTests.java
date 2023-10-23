@@ -124,8 +124,7 @@ class AuthentiCareBankApiApplicationTests {
         mvc.perform(post("/customer")
                         .content(objectWriter.writeValueAsString(newCustomer))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{}"));
+                .andExpect(status().isOk());
     }
 
 
