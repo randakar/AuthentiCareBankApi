@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class TransactionEntity {
     @Column(columnDefinition= "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     @NonNull
-    private LocalDateTime timestamp = LocalDateTime.now();
+    private Instant timestamp = Instant.now();
 
     @Basic
     @Nullable

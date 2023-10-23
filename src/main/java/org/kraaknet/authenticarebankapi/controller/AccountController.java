@@ -48,7 +48,8 @@ public class AccountController implements AccountApi {
 
     @Override
     public ResponseEntity<List<TransactionViewModel>> getTransactions(Long id) {
-        return AccountApi.super.getTransactions(id);
+        List<TransactionViewModel> result = accountService.getTransactionsByAccountId(id);
+        return ResponseEntity.ok(result);
     }
 
     @Override
