@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<TransactionEntity, Long> {
 
-    List<TransactionEntity> findAllByAffectedAccountsOrderByTimestamp(List<AccountEntity> accountEntities);
 }

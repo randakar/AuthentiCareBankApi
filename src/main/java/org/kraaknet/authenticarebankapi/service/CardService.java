@@ -20,8 +20,4 @@ public class CardService {
     private final CardMapper mapper;
 
 
-    public List<CardModel> findCardsByOwner(CustomerEntity customerEntity) {
-        List<CardEntity> result = repository.findAllByOwner(customerEntity);
-        return mapper.toCardModels(result);
-    }
 }
