@@ -441,8 +441,6 @@ components:
           type: string
         description:
           type: string
-        balance:
-          $ref: '#/components/schemas/MoneyModel'
       required:
         - iban
         - owner
@@ -461,6 +459,8 @@ components:
           items:
             type: integer
             format: int64
+        balance:
+          $ref: '#/components/schemas/MoneyModel'
       required:
         - id
 
