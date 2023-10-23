@@ -4,13 +4,19 @@ import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kraaknet.authenticarebankapi.controller.api.CustomerApi;
+import org.kraaknet.authenticarebankapi.controller.model.AccountViewModel;
 import org.kraaknet.authenticarebankapi.controller.model.CustomerModel;
+import org.kraaknet.authenticarebankapi.controller.model.CustomerOverviewModel;
 import org.kraaknet.authenticarebankapi.controller.model.CustomerViewModel;
 import org.kraaknet.authenticarebankapi.service.CustomerService;
 import org.kraaknet.authenticarebankapi.service.security.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.NativeWebRequest;
+
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -44,7 +50,23 @@ public class CustomerController implements CustomerApi {
     @Override
     @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity<CustomerViewModel> createCustomer(CustomerModel customerModel) {
-        log.warn("createCustomer({})", customerModel);
+        log.debug("createCustomer({})", customerModel);
         return ResponseEntity.ok(customerService.createCustomer(customerModel));
+    }
+
+
+    @Override
+    public ResponseEntity<CustomerOverviewModel> getCustomerOverview(Long id) {
+        return CustomerApi.super.getCustomerOverview(id);
+    }
+
+    @Override
+    public Optional<NativeWebRequest> getRequest() {
+        return CustomerApi.super.getRequest();
+    }
+
+    @Override
+    public ResponseEntity<List<AccountViewModel>> getCustomerAccounts(Long id) {
+        return CustomerApi.super.getCustomerAccounts(id);
     }
 }
