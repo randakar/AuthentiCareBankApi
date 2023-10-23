@@ -292,7 +292,7 @@
                                 <generatedConstructorWithRequiredArgs>true</generatedConstructorWithRequiredArgs>
                                 <performBeanValidation>true</performBeanValidation>
                                 <unhandledException>false</unhandledException>
-                                <additionalModelTypeAnnotations>@lombok.AllArgsConstructor;@lombok.Builder</additionalModelTypeAnnotations>
+<!--                                <additionalModelTypeAnnotations>@lombok.AllArgsConstructor;@lombok.experimental.SuperBuilder;@lombok.extern.jackson.Jacksonized</additionalModelTypeAnnotations>-->
                             </configOptions>
                             <typeMappings>
                                 <typeMapping>DateTime=Instant</typeMapping>
