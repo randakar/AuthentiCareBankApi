@@ -88,7 +88,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerViewModel'
+                properties:
+                  id:
+                    format: int64
+                    type: integer
 
 components:
   securitySchemes:
@@ -143,6 +146,7 @@ components:
           type: string
       required:
         - id
+        - userName
       type: object
 
     CustomerViewModel:
