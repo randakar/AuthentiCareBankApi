@@ -60,7 +60,7 @@ class AuthentiCareBankApiApplicationTests {
     void givenNoUserWhenCallGetCurrentCustomerThenReturnRedirectionToLogin() {
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
         ResponseEntity<Void> result = testRestTemplate
-                .exchange("/customer/me", GET, entity, Void.class);
+                .exchange("/customer", GET, entity, Void.class);
         assertNotNull(result);
         assertTrue(result.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(401)));
     }
@@ -69,7 +69,7 @@ class AuthentiCareBankApiApplicationTests {
     void givenAnonymousUserWhenCallGetCurrentCustomerThenGoKaboom() {
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
         ResponseEntity<Void> result = restTemplateForRole(NONE)
-                .exchange("/customer/me", GET, entity, Void.class);
+                .exchange("/customer", GET, entity, Void.class);
         assertNotNull(result);
         assertTrue(result.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(401)));
     }
@@ -78,7 +78,7 @@ class AuthentiCareBankApiApplicationTests {
     void givenUserUnknownWhenCallGetCurrentCustomerThenReturnNotFound() {
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
         ResponseEntity<Void> result = restTemplateForRole(USER)
-                .exchange("/customer/me", GET, entity, Void.class);
+                .exchange("/customer", GET, entity, Void.class);
         assertNotNull(result);
         assertTrue(result.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(404)));
     }
@@ -87,19 +87,14 @@ class AuthentiCareBankApiApplicationTests {
     void givenUserExistsWhenCallGetCurrentCustomerThenReturnCustomerDetails() {
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
         ResponseEntity<Void> result = restTemplateForRole(USER)
-                .exchange("/customer/me", GET, entity, Void.class);
+                .exchange("/customer", GET, entity, Void.class);
         assertNotNull(result);
         assertTrue(result.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(404)));
     }
 
     @Test
     void givenAdminUserWhenCallCreateCustomerThenReturnNewCustomer() {
-        var newCustomer = CustomerModel.builder()
-                .userName("Floris")
-                .firstName("Floris")
-                .lastName("Kraak")
-                .email("randakar@gmail.com")
-                .build();
+        var newCustomer = newCustomer();
         HttpEntity<CustomerModel> entity = new HttpEntity<>(newCustomer);
         TestRestTemplate template = restTemplateForRole(ADMIN);
         ResponseEntity<CustomerViewModel> result = template.postForEntity("/customer", entity, CustomerViewModel.class);
@@ -125,6 +120,17 @@ class AuthentiCareBankApiApplicationTests {
 //        CustomerViewModel resultBody = result.getBody();
 //        assertNotNull(resultBody);
 //        assertEquals(expectedResultBody, resultBody);
+    }
+
+    private static CustomerModel newCustomer() {
+        // This part of api-first development kinda sucks - the code generators are usually behind the times.
+        // I miss builders ..
+        var result = new CustomerModel();
+        result.userName("Fooser");
+        result.setEmail("foo@test.com");
+        result.firstName("Footer");
+        result.lastName("Barman");
+        return result;
     }
 
 
