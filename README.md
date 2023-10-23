@@ -26,8 +26,8 @@ Requirement / Validations:
 1. A negative balance is not possible
 2. Account should contain at least some user details, card details and current balance [x]
 3. One rest endpoint to see current available balance in all accounts [x]
-4. One rest endpoint to withdraw money
-5. One rest endpoint to transfer money
+4. One rest endpoint to withdraw money [x]
+5. One rest endpoint to transfer money [x]
 6. One credit card or debit card is linked with one account
 7. It should be able to audit transfers or withdrawals
 8. Front end part is not required [x]
