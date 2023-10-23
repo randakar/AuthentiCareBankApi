@@ -283,6 +283,15 @@ paths:
     post:
       operationId: transferAmount
       description: Transfer money
+      parameters:
+        - description: 'The id of the account for which the transfer applies'
+          explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          style: simple
       requestBody:
         description: Money transfer
         required: true
@@ -302,6 +311,16 @@ paths:
     post:
       operationId: withdrawAmount
       description: Withdraw cash
+      parameters:
+        - description: 'The id of the account for which the withdrawal applies'
+          explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          style: simple
+
       requestBody:
         description: Money transfer to ATM
         required: true
