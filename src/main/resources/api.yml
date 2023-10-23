@@ -26,24 +26,6 @@ tags:
     name: transaction
 paths:
 
-  /customer/me:
-    get:
-      operationId: getCurrentCustomer
-      responses:
-        200:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CustomerViewModel'
-          description: successful operation
-        404:
-          content: {}
-          description: Customer not found
-      summary: Get my own customer details
-      tags:
-        - customer
-      x-accepts: application/json
-
   /customer/{id}:
     get:
       operationId: getCustomerById
@@ -63,6 +45,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/CustomerViewModel'
           description: Customer view model retrieved
+        404:
+          content: {}
+          description: Customer not found
+      summary: Get customer by id
+      tags:
+        - customer
+      x-accepts: application/json
+
+  /customer/{id}/overview:
+    get:
+      operationId: getCustomerOverview
+      parameters:
+        - description: 'The id of the customer to be fetched for'
+          explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/CustomerOverviewModel'
+          description: successful operation
         404:
           content: {}
           description: Customer not found
@@ -101,6 +110,23 @@ paths:
       x-accepts: application/json
 
   /customer:
+    get:
+      operationId: getCurrentCustomer
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerViewModel'
+          description: successful operation
+        404:
+          content: { }
+          description: Customer not found
+      summary: Get my own customer details
+      tags:
+        - customer
+      x-accepts: application/json
+
     post:
       operationId: createCustomer
       summary: Create a new customer.
@@ -124,6 +150,137 @@ paths:
       x-accepts: application/json
       tags:
         - customer
+
+
+  /account/{id}:
+    get:
+      operationId: getAccountById
+      parameters:
+        - description: 'The id of the account that needs to be fetched. '
+          explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountViewModel'
+          description: Account view model retrieved
+        404:
+          content: {}
+          description: Account not found
+      summary: Get account by id
+      tags:
+        - account
+      x-accepts: application/json
+
+  /account/{id}/overview:
+    get:
+      operationId: getAccountOvervieuwById
+      parameters:
+        - description: 'The id of the account that needs to be fetched. '
+          explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountOverviewModel'
+          description: Account view model retrieved
+        404:
+          content: {}
+          description: Account not found
+      summary: Get account by id
+      tags:
+        - account
+      x-accepts: application/json
+
+  /account:
+    get:
+      operationId: getMyAccounts
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountViewModel'
+          description: successful operation
+        404:
+          content: { }
+          description: Customer not found
+      summary: Get my own account details
+      tags:
+        - account
+      x-accepts: application/json
+
+    post:
+      operationId: createAccount
+      summary: Create a new account.
+      description: Create a new account.
+      requestBody:
+        description: Account
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountModel'
+      responses:
+        200:
+          description: Account created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountViewModel'
+        409:
+          description: Customer already exists.
+      x-accepts: application/json
+      tags:
+        - customer
+
+  /account/{id}/transactions:
+    get:
+      operationId: getTransactions
+      parameters:
+        - description: 'The id of the account for which all transactions need to be shown'
+          explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionViewModel'
+          description: Transactions retrieved
+        404:
+          content: {}
+          description: Account not found
+      summary: Get transactions for account by account id
+      tags:
+        - transactions
+      x-accepts: application/json
+
+
+
 
 components:
   securitySchemes:
@@ -270,6 +427,8 @@ components:
           creditcard: '#/components/schemas/CreditCardModel'
           debitcard:  '#/components/schemas/DebitCardModel'
       properties:
+        cardNumber:
+          type: string
         description:
           type: string
           example: "Huishouden"
@@ -278,6 +437,9 @@ components:
           pattern: (ACTIVE|BLOCKED|EXPIRED)
           description: current state of the card
         customerId:
+          type: number
+          format: int64
+        accountOd:
           type: number
           format: int64
         cardType:
@@ -289,6 +451,12 @@ components:
           description: Company issuing the card
           type: string
           example: Visa
+      required:
+        - cardNumber
+        - cardType
+        - status
+        - expirationDate
+        - issuer
 
     CreditCardModel:
       allOf:
@@ -314,9 +482,6 @@ components:
         - $ref: '#/components/schemas/CardModel'
         - type: object
           description: DebitCard
-          properties:
-            cardNumber:
-              type: string
 
     TransactionModel:
       properties:
