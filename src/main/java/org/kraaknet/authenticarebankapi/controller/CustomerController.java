@@ -4,6 +4,7 @@ import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kraaknet.authenticarebankapi.controller.api.CustomerApi;
+import org.kraaknet.authenticarebankapi.controller.model.CreateCustomer201Response;
 import org.kraaknet.authenticarebankapi.controller.model.CustomerModel;
 import org.kraaknet.authenticarebankapi.controller.model.CustomerViewModel;
 import org.kraaknet.authenticarebankapi.service.CustomerService;
@@ -45,11 +46,6 @@ public class CustomerController implements CustomerApi {
     @Override
     public ResponseEntity<CustomerViewModel> createCustomer(CustomerModel customerModel) {
         log.warn("createCustomer({})", customerModel);
-        var resultModel = customerService.createCustomer(customerModel);
-        var uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(resultModel.getId()).toUri();
-        log.warn("uri: {}", uri.toASCIIString());
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.ok(customerService.createCustomer(customerModel));
     }
 }

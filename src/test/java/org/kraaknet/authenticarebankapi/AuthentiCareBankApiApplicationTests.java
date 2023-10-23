@@ -103,7 +103,7 @@ class AuthentiCareBankApiApplicationTests {
                 .email("randakar@gmail.com")
                 .build();
         mvc.perform(post("/customer", newCustomer).contentType(MediaType.APPLICATION_JSON.getMediaType()))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(content().json("{}"));
     }
 
