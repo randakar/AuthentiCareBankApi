@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -23,7 +24,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.shaded.com.github.dockerjava.core.MediaType;
 import org.testcontainers.utility.DockerImageName;
 
 import static java.lang.Boolean.TRUE;
@@ -70,7 +70,7 @@ class AuthentiCareBankApiApplicationTests {
 
     @Test
     void givenNoUserWhenCallGetCurrentCustomerThenReturnRedirectionToLogin() throws Exception {
-        mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
+        mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(header().string("Location","http://localhost/login"));
     }
@@ -78,7 +78,7 @@ class AuthentiCareBankApiApplicationTests {
     @Test
     @WithAnonymousUser
     void givenAnonymousUserWhenCallGetCurrentCustomerThenGoKaboom() throws Exception {
-        mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
+        mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(header().string("Location","http://localhost/login"));
     }
@@ -86,28 +86,28 @@ class AuthentiCareBankApiApplicationTests {
     @Test
     @WithMockUnknownUser
     void givenUserUnknownWhenCallGetCurrentCustomerThenReturnNotFound() throws Exception {
-        mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
+        mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockCustomerUser
     void givenUserExistsWhenCallGetCurrentCustomerThenReturnCustomerDetails() throws Exception {
-        mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
+        mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound()); // Todo - should return content once we have data in the db
     }
 
     @Test
     @WithMockCustomerUser
     void givenUserExistsAndUserCustomerWhenCallGetCustomerByIdThenDenyAccess() throws Exception {
-        mvc.perform(get("/customer/1").contentType(MediaType.APPLICATION_JSON.getMediaType()))
+        mvc.perform(get("/customer/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
 
     @Test
     @WithMockAdminUser
     void givenUserExistsAndUserAdminWhenCallGetCustomerByIdThenReturnCustomerDetails() throws Exception {
-        mvc.perform(get("/customer/1").contentType(MediaType.APPLICATION_JSON.getMediaType()))
+        mvc.perform(get("/customer/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound()); // Todo - should return content once we have data in the db
     }
 
@@ -123,7 +123,7 @@ class AuthentiCareBankApiApplicationTests {
                 .build();
         mvc.perform(post("/customer")
                         .content(objectWriter.writeValueAsString(newCustomer))
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType()))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{}"));
     }
