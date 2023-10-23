@@ -359,11 +359,6 @@ components:
       pattern: '[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}'
       example: 'NL20INGB0001234567'
 
-    cardType:
-        type: string
-        pattern: (creditcard|debitcard)
-        example: creditcard
-
     transactionType:
       type: string
       pattern: (withdrawal|transfer)
@@ -505,7 +500,9 @@ components:
           type: integer
           format: int64
         cardType:
-          $ref: '#/components/schemas/cardType'
+          type: string
+          pattern: (creditcard|debitcard)
+          example: creditcard
         expirationDate:
           type: string
           format: date
