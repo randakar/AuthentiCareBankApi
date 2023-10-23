@@ -90,8 +90,23 @@ class AuthentiCareBankApiApplicationTests {
     @WithMockCustomerUser
     void givenUserExistsWhenCallGetCurrentCustomerThenReturnCustomerDetails() throws Exception {
         mvc.perform(get("/customer/me").contentType(MediaType.APPLICATION_JSON.getMediaType()))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound()); // Todo - should return content once we have data in the db
     }
+
+    @Test
+    @WithMockCustomerUser
+    void givenUserExistsAndUserCustomerWhenCallGetCustomerByIdThenDenyAccess() throws Exception {
+        mvc.perform(get("/customer/1").contentType(MediaType.APPLICATION_JSON.getMediaType()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockAdminUser
+    void givenUserExistsAndUserAdminWhenCallGetCustomerByIdThenReturnCustomerDetails() throws Exception {
+        mvc.perform(get("/customer/1").contentType(MediaType.APPLICATION_JSON.getMediaType()))
+                .andExpect(status().isNotFound()); // Todo - should return content once we have data in the db
+    }
+
 
     @Test
     @WithMockAdminUser
