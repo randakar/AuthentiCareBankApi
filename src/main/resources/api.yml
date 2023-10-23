@@ -16,7 +16,7 @@ servers:
   - url: http://localhost:8080/
   - url: /
 security:
-  - BasicAuth: []
+  - BasicAuth: [ ]
 tags:
   - description: Operations on accounts
     name: account
@@ -46,7 +46,7 @@ paths:
                 $ref: '#/components/schemas/CustomerViewModel'
           description: Customer view model retrieved
         404:
-          content: {}
+          content: { }
           description: Customer not found
       summary: Get customer by id
       tags:
@@ -70,10 +70,10 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/CustomerOverviewModel'
+                $ref: '#/components/schemas/CustomerOverviewModel'
           description: successful operation
         404:
-          content: {}
+          content: { }
           description: Customer not found
       summary: Get customer by id
       tags:
@@ -102,7 +102,7 @@ paths:
                   $ref: '#/components/schemas/AccountViewModel'
           description: successful operation
         404:
-          content: {}
+          content: { }
           description: Customer not found
       summary: Get customer by id
       tags:
@@ -172,7 +172,7 @@ paths:
                 $ref: '#/components/schemas/AccountViewModel'
           description: Account view model retrieved
         404:
-          content: {}
+          content: { }
           description: Account not found
       summary: Get account by id
       tags:
@@ -199,7 +199,7 @@ paths:
                 $ref: '#/components/schemas/AccountOverviewModel'
           description: Account view model retrieved
         404:
-          content: {}
+          content: { }
           description: Account not found
       summary: Get account by id
       tags:
@@ -273,7 +273,7 @@ paths:
                   $ref: '#/components/schemas/TransactionViewModel'
           description: Transactions retrieved
         404:
-          content: {}
+          content: { }
           description: Account not found
       summary: Get transactions for account by account id
       tags:
@@ -470,16 +470,14 @@ components:
           items:
             $ref: '#/components/schemas/CustomerViewModel'
         cards:
-          type: array
-          items:
-            $ref: '#/components/schemas/CardModel'
+          $ref: '#/components/schemas/CardModel'
 
     CardModel:
       discriminator:
         propertyName: cardType
         mapping:
           creditcard: '#/components/schemas/CreditCardModel'
-          debitcard:  '#/components/schemas/DebitCardModel'
+          debitcard: '#/components/schemas/DebitCardModel'
       properties:
         cardNumber:
           type: string

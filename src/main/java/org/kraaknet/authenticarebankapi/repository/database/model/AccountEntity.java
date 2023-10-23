@@ -49,9 +49,9 @@ public class AccountEntity {
     @NonNull
     private List<CustomerEntity> owners;
 
-    @OneToMany
+    @OneToOne
     @NonNull
-    private List<CardEntity> cards;
+    private CardEntity card;
 
 
     @ManyToMany

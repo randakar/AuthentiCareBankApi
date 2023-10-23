@@ -33,7 +33,7 @@ public interface AccountMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "owners", ignore = true)
     @Mapping(target = "balance", ignore = true)
-    @Mapping(target = "cards", ignore = true)
+    @Mapping(target = "card", ignore = true)
     @Mapping(target = "transactionHistory", ignore = true)
     AccountEntity toAccountEntity(AccountModel accountModel);
 

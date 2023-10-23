@@ -1,6 +1,5 @@
 package org.kraaknet.authenticarebankapi.repository.database.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalIdCache;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -31,7 +29,7 @@ public class CardEntity {
     @NonNull
     private CustomerEntity owner;
 
-    @ManyToOne
+    @OneToOne
     @NonNull
     private AccountEntity account;
 
