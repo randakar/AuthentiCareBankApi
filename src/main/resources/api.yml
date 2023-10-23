@@ -93,6 +93,8 @@ paths:
         409:
           description: Customer already exists.
       x-accepts: application/json
+      tags:
+        - customer
       security:
         - BasicAuth: [ ]
 
