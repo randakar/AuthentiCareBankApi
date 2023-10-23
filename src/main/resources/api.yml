@@ -74,7 +74,8 @@ paths:
   /customer:
     post:
       operationId: createCustomer
-      summary: Create a new customer
+      summary: Create a new customer.
+      description: Create a new customer.
       requestBody:
         description: Customer
         required: true
@@ -84,11 +85,16 @@ paths:
               $ref: '#/components/schemas/CustomerModel'
       responses:
         200:
-          description: Created
+          description: Customer created.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerViewModel'
+        409:
+          description: Customer already exists.
+      x-accepts: application/json
+      security:
+        - BasicAuth: [ ]
 
 components:
   securitySchemes:
