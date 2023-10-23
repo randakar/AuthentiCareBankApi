@@ -63,6 +63,7 @@ public class CustomerController implements CustomerApi {
 
     @Override
     public ResponseEntity<List<AccountViewModel>> getCustomerAccounts(Long id) {
-        return CustomerApi.super.getCustomerAccounts(id);
+        List<AccountViewModel> result = customerService.findAccountsForCustomerId(id);
+        return ResponseEntity.ok(result);
     }
 }

@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
 
-    List<AccountEntity> findAllByOwner(CustomerEntity customerEntity);
 
 }

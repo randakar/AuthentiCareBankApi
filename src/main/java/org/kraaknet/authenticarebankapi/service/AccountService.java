@@ -19,7 +19,4 @@ public class AccountService {
     private final AccountMapper mapper;
 
 
-    public List<AccountViewModel> findAccountsByCustomer(CustomerEntity customerEntity) {
-        return mapper.toAccountViewModels(repository.findAllByOwner(customerEntity));
-    }
 }

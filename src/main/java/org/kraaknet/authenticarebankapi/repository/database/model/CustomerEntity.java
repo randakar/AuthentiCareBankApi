@@ -47,4 +47,8 @@ public class CustomerEntity {
     @OrderBy("name ASC")
     @NonNull
     private List<AccountEntity> accounts = new ArrayList<>();
+
+    @OneToMany
+    @NonNull
+    private List<CardEntity> cards;
 }
