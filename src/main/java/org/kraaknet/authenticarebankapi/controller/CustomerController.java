@@ -4,7 +4,8 @@ import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kraaknet.authenticarebankapi.controller.api.CustomerApi;
-import org.kraaknet.authenticarebankapi.controller.model.CustomerDto;
+import org.kraaknet.authenticarebankapi.controller.model.CustomerModel;
+import org.kraaknet.authenticarebankapi.controller.model.CustomerViewModel;
 import org.kraaknet.authenticarebankapi.service.CustomerService;
 import org.kraaknet.authenticarebankapi.service.security.UserService;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,8 @@ public class CustomerController implements CustomerApi {
 
     @Override
     @RolesAllowed("ROLE_USER")
-    public ResponseEntity<CustomerDto> getCurrentCustomer() {
-        log.info("getCurrentCustomer()");
+    public ResponseEntity<CustomerViewModel> getCurrentCustomer() {
+        log.debug("getCurrentCustomer()");
         String userName = userService.getCurrentUser().getUsername();
         return customerService.findCustomerByUserName(userName)
                 .map(ResponseEntity::ok)
@@ -33,10 +34,17 @@ public class CustomerController implements CustomerApi {
 
     @Override
     @RolesAllowed("ROLE_ADMIN")
-    public ResponseEntity<CustomerDto> getCustomerById(Long id) {
-        log.info("getCustomerById({})", id);
-        return ResponseEntity.of(customerService.findCustomerById(id));
+    public ResponseEntity<CustomerViewModel> getCustomerById(Long id) {
+        log.debug("getCustomerById({})", id);
+        return customerService.findCustomerById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
+    @Override
+    @RolesAllowed("ROLE_ADMIN")
+    public ResponseEntity<CustomerViewModel> createCustomer(CustomerModel customerModel) {
+        log.warn("createCustomer({})", customerModel);
+        return ResponseEntity.ok(customerService.createCustomer(customerModel));
+    }
 }

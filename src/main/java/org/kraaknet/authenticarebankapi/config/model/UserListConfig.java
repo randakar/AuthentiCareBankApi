@@ -14,7 +14,7 @@ public record UserListConfig(
     public List<UserDetails> getUsersAsUserDetails() {
         return users.stream()
                 .map(userConfig -> User.withUsername(userConfig.name())
-                        .password(userConfig.encodedPassword())
+                        .password("{bcrypt}" + userConfig.encodedPassword()) // Let's not store plain text passwords ..
                         .roles(userConfig.roles().toArray(String[]::new))
                         .build())
                 .toList();
