@@ -15,7 +15,6 @@ public class MoneyEntity {
 
     @Basic(optional = false)
     @NonNull
-    // Todo - turn this into an Enum
     private String currency;
 
     @Basic(optional = false)

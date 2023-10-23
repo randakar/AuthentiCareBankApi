@@ -3,9 +3,9 @@
 
 _Rabobank Authenticare banking account assignment_
 
-Write some code in Java to simulate a simple bank account.
-It should be possible to transfer and withdraw money from an account.
-It is possible to pay with either debit card or credit card.
+Write some code in Java to simulate a simple bank account. [x]
+It should be possible to transfer and withdraw money from an account. [x]
+It is possible to pay with either debit card or credit card. [x]
 If a transfer/withdraw is done with a credit card, 1% of the amount is charged extra.
 
 Use design patterns where applicable and write some test cases as well.

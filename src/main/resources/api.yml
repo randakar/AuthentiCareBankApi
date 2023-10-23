@@ -411,8 +411,8 @@ components:
         id: 0
       properties:
         id:
-          format: int64
           type: integer
+          format: int64
       required:
         - id
         - userName
@@ -440,8 +440,8 @@ components:
         iban:
           $ref: '#/components/schemas/iban'
         owner:
-          format: int64
           type: integer
+          format: int64
         name:
           type: string
         description:
@@ -459,12 +459,12 @@ components:
         id: 0
       properties:
         id:
-          format: int64
           type: integer
+          format: int64
         owners:
           type: array
           items:
-            type: number
+            type: integer
             format: int64
       required:
         - id
@@ -499,10 +499,10 @@ components:
           pattern: (ACTIVE|BLOCKED|EXPIRED)
           description: current state of the card
         customerId:
-          type: number
+          type: integer
           format: int64
-        accountOd:
-          type: number
+        accountId:
+          type: integer
           format: int64
         cardType:
           $ref: '#/components/schemas/cardType'
@@ -612,8 +612,8 @@ components:
         - $ref: '#/components/schemas/TransactionModel'
       properties:
         id:
-          format: int64
           type: integer
+          format: int64
 
     Error:
       properties:

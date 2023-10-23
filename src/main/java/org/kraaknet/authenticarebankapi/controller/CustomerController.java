@@ -1,6 +1,7 @@
 package org.kraaknet.authenticarebankapi.controller;
 
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kraaknet.authenticarebankapi.controller.api.CustomerApi;
@@ -56,13 +57,10 @@ public class CustomerController implements CustomerApi {
 
 
     @Override
-    public ResponseEntity<CustomerOverviewModel> getCustomerOverview(Long id) {
-        return CustomerApi.super.getCustomerOverview(id);
-    }
-
-    @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return CustomerApi.super.getRequest();
+    public ResponseEntity<CustomerOverviewModel> getCustomerOverview(@NotNull Long id) {
+        return customerService.findCustomerOverview(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Override
