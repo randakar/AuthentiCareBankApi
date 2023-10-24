@@ -39,7 +39,7 @@ public class TransactionService {
         return repository.save(verifiedTransaction);
     }
 
-    // Todo: Turn this into a JSR-303 Bean validation annotation
+    // Todo: Turn this into a JSR-303 Bean validation annotation. Or two.
     private TransactionEntity verifyTransaction(AccountEntity fromAccount, TransactionEntity newTransaction) {
         return verifyTransaction(fromAccount, null, newTransaction);
     }
@@ -53,20 +53,25 @@ public class TransactionService {
         }
 
         // Neither of these should be reachable.
-        if(!StringUtils.equalsAnyIgnoreCase(fromAccount.getIban(), newTransaction.getFromIban())) {
+        if (!StringUtils.equalsAnyIgnoreCase(fromAccount.getIban(), newTransaction.getFromIban())) {
             throw new ValidationException("From account does not match Iban"); // Or perhaps a custom InvalidTransactionException?
         }
 
-        Optional.ofNullable(toAccount.getIban()).ifPresent(toIban -> {
-            if (!StringUtils.equalsAnyIgnoreCase(toIban, newTransaction.getToIban())) {
-                throw new ValidationException("To account does not match Iban"); // Or perhaps a custom InvalidTransactionException?
-            }
-        });
-
-
+        Optional.ofNullable(toAccount)
+                .map(AccountEntity::getIban)
+                .ifPresent(toIban -> {
+                    if (!StringUtils.equalsAnyIgnoreCase(toIban, newTransaction.getToIban())) {
+                        throw new ValidationException("To account does not match Iban"); // Or perhaps a custom InvalidTransactionException?
+                    }
+                });
 
         long newAmountInCents = calculateCharges(newTransaction, amount);
         MoneyEntity newAmount = amountOf(currency, newAmountInCents);
+        long newBalanceInCents = balance.getAmountInCents() - newAmountInCents;
+        if (newBalanceInCents < 0) {
+            throw new NotAuthorizedException(); // Insufficient funds.
+        }
+
         TransactionEntity verifiedTransaction = transactionWithNewAmount(newTransaction, newAmount);
 
         if (!transactionAuthorizationService.authorizeTransaction(fromAccount, verifiedTransaction)) {
