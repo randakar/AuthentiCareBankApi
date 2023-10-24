@@ -31,10 +31,6 @@ public class AccountEntity {
     @NonNull
     private String iban;
 
-    @ManyToOne
-    @NonNull
-    private CustomerEntity owner;
-
     @Basic(optional = false)
     @NonNull
     private String name;
@@ -47,7 +43,19 @@ public class AccountEntity {
     @NonNull
     private String description;
 
+
     @ManyToMany
+    @JoinTable
+    @NonNull
+    private List<CustomerEntity> owners;
+
+    @OneToOne
+    @NonNull
+    private CardEntity card;
+
+
+    @ManyToMany
+    @JoinTable
     @OrderBy("timestamp ASC")
     @NonNull
     private List<TransactionEntity> transactionHistory = new ArrayList<>();

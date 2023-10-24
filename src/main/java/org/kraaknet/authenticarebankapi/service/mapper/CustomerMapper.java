@@ -18,6 +18,11 @@ public interface CustomerMapper  {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "accounts", ignore = true)
+    @Mapping(target = "cards", ignore = true)
     CustomerEntity toEntity(CustomerModel model);
+
+
+
+
 
 }
